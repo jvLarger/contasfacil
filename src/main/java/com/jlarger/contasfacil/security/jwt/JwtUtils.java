@@ -38,6 +38,7 @@ public class JwtUtils {
     buider = buider.setIssuedAt(new Date());
     buider = buider.setExpiration(new Date()).setExpiration(new Date((new Date()).getTime() + jwtExpirationMs));    
     buider = buider.signWith(SignatureAlgorithm.HS512, jwtSecret);
+    
     return buider.compact();
     /*
     return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
