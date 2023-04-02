@@ -1,7 +1,10 @@
 package com.jlarger.contasfacil.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,13 +24,13 @@ public class ContaBancaria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(nullable=false, length = 80)
+	private String nmApelidoConta;
+	
 	@Column(nullable=false, length = 40)
 	private String nmNumeroConta;
 	
-	@Column(nullable=false, length = 40)
-	private Double vlrLimiteConta;
-	
-	@Column(nullable=false, length = 40)
+	@Column(length = 40)
 	private String txtDetalhes;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -37,16 +41,19 @@ public class ContaBancaria {
     @JoinColumn(name = "id_usuario", nullable=false)
     private Usuario usuario;
 	
+	@OneToMany(mappedBy = "contaBancaria", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Lancamento> lancamentos = new ArrayList<>();
+	
 	public ContaBancaria() {
 	}
 
-	public ContaBancaria(Long id, String nmNumeroConta, Double vlrLimiteConta, String txtDetalhes, Banco banco, Usuario usuario) {
+	public ContaBancaria(Long id, String nmNumeroConta, Double vlrLimiteConta, String txtDetalhes, Banco banco, String nmApelidoConta, Usuario usuario) {
 		super();
 		this.id = id;
 		this.nmNumeroConta = nmNumeroConta;
-		this.vlrLimiteConta = vlrLimiteConta;
 		this.txtDetalhes = txtDetalhes;
 		this.banco = banco;
+		this.nmApelidoConta = nmApelidoConta;
 		this.usuario = usuario;
 	}
 
@@ -57,6 +64,14 @@ public class ContaBancaria {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public String getNmApelidoConta() {
+		return nmApelidoConta;
+	}
+
+	public void setNmApelidoConta(String nmApelidoConta) {
+		this.nmApelidoConta = nmApelidoConta;
+	}
 
 	public String getNmNumeroConta() {
 		return nmNumeroConta;
@@ -64,14 +79,6 @@ public class ContaBancaria {
 
 	public void setNmNumeroConta(String nmNumeroConta) {
 		this.nmNumeroConta = nmNumeroConta;
-	}
-
-	public Double getVlrLimiteConta() {
-		return vlrLimiteConta;
-	}
-
-	public void setVlrLimiteConta(Double vlrLimiteConta) {
-		this.vlrLimiteConta = vlrLimiteConta;
 	}
 
 	public String getTxtDetalhes() {
@@ -100,7 +107,7 @@ public class ContaBancaria {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(banco, id, nmNumeroConta, txtDetalhes, usuario, vlrLimiteConta);
+		return Objects.hash(banco, id, nmNumeroConta, txtDetalhes, usuario);
 	}
 
 	@Override
@@ -114,7 +121,7 @@ public class ContaBancaria {
 		ContaBancaria other = (ContaBancaria) obj;
 		return Objects.equals(banco, other.banco) && Objects.equals(id, other.id)
 				&& Objects.equals(nmNumeroConta, other.nmNumeroConta) && Objects.equals(txtDetalhes, other.txtDetalhes)
-				&& Objects.equals(usuario, other.usuario) && Objects.equals(vlrLimiteConta, other.vlrLimiteConta);
+				&& Objects.equals(usuario, other.usuario);
 	}
 	
 }

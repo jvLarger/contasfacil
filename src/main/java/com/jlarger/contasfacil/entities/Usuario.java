@@ -46,6 +46,9 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Categoria> categorias = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Lancamento> lancamentos = new ArrayList<>();
+	
 	public Usuario() {
 	
 	}

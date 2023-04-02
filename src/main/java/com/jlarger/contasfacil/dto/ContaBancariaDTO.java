@@ -6,30 +6,30 @@ import com.jlarger.contasfacil.entities.Banco;
 import com.jlarger.contasfacil.entities.ContaBancaria;
 
 public class ContaBancariaDTO {
-	
+
 	private Long id;
 	private String nmNumeroConta;
-	private Double vlrLimiteConta;
+	private String nmApelidoConta;
 	private String txtDetalhes;
-    private Banco banco;
-	
-    public ContaBancariaDTO() {
+	private BancoDTO banco;
+
+	public ContaBancariaDTO() {
 	}
 
-	public ContaBancariaDTO(Long id, String nmNumeroConta, Double vlrLimiteConta, String txtDetalhes, Banco banco) {
+	public ContaBancariaDTO(Long id, String nmNumeroConta, String nmApelidoConta, String txtDetalhes, Banco banco) {
 		this.id = id;
 		this.nmNumeroConta = nmNumeroConta;
-		this.vlrLimiteConta = vlrLimiteConta;
+		this.nmApelidoConta = nmApelidoConta;
 		this.txtDetalhes = txtDetalhes;
-		this.banco = banco;
+		this.banco = new BancoDTO(banco);
 	}
-	
+
 	public ContaBancariaDTO(ContaBancaria contaBancaria) {
 		this.id = contaBancaria.getId();
 		this.nmNumeroConta = contaBancaria.getNmNumeroConta();
-		this.vlrLimiteConta = contaBancaria.getVlrLimiteConta();
+		this.nmApelidoConta = contaBancaria.getNmApelidoConta();
 		this.txtDetalhes = contaBancaria.getTxtDetalhes();
-		this.banco = contaBancaria.getBanco();
+		this.banco = new BancoDTO(contaBancaria.getBanco());
 	}
 
 	public Long getId() {
@@ -48,12 +48,12 @@ public class ContaBancariaDTO {
 		this.nmNumeroConta = nmNumeroConta;
 	}
 
-	public Double getVlrLimiteConta() {
-		return vlrLimiteConta;
+	public String getNmApelidoConta() {
+		return nmApelidoConta;
 	}
 
-	public void setVlrLimiteConta(Double vlrLimiteConta) {
-		this.vlrLimiteConta = vlrLimiteConta;
+	public void setNmApelidoConta(String nmApelidoConta) {
+		this.nmApelidoConta = nmApelidoConta;
 	}
 
 	public String getTxtDetalhes() {
@@ -64,17 +64,17 @@ public class ContaBancariaDTO {
 		this.txtDetalhes = txtDetalhes;
 	}
 
-	public Banco getBanco() {
+	public BancoDTO getBanco() {
 		return banco;
 	}
 
-	public void setBanco(Banco banco) {
+	public void setBanco(BancoDTO banco) {
 		this.banco = banco;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(banco, id, nmNumeroConta, txtDetalhes, vlrLimiteConta);
+		return Objects.hash(banco, id, nmNumeroConta, txtDetalhes);
 	}
 
 	@Override
@@ -87,8 +87,7 @@ public class ContaBancariaDTO {
 			return false;
 		ContaBancariaDTO other = (ContaBancariaDTO) obj;
 		return Objects.equals(banco, other.banco) && Objects.equals(id, other.id)
-				&& Objects.equals(nmNumeroConta, other.nmNumeroConta) && Objects.equals(txtDetalhes, other.txtDetalhes)
-				&& Objects.equals(vlrLimiteConta, other.vlrLimiteConta);
+				&& Objects.equals(nmNumeroConta, other.nmNumeroConta) && Objects.equals(txtDetalhes, other.txtDetalhes);
 	}
-	
+
 }
