@@ -25,7 +25,7 @@ public class Lancamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "ind_tp_natureza")
 	@Enumerated(EnumType.ORDINAL)
 	private LancamentoTipoNatureza tpNatureza;
 
@@ -56,7 +56,7 @@ public class Lancamento {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_categoria", nullable = false)
 	private Categoria categoria;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;

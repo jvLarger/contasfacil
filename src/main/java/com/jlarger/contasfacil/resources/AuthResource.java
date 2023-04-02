@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jlarger.contasfacil.dto.JwtResponse;
 import com.jlarger.contasfacil.dto.MessageResponse;
+import com.jlarger.contasfacil.dto.TokenDTO;
 import com.jlarger.contasfacil.dto.UsuarioDTO;
 import com.jlarger.contasfacil.entities.Usuario;
 import com.jlarger.contasfacil.repositories.PerfilRepository;
@@ -112,5 +113,11 @@ public class AuthResource {
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+	
+	@PostMapping("/token-valido")
+	public ResponseEntity<?> accessTokenValid(@Validated @RequestBody TokenDTO tokenDTO) {
+		boolean isJwtTokenValid = jwtUtils.validateJwtToken(tokenDTO.getAccessToken());
+		return ResponseEntity.ok(new TokenDTO(tokenDTO.getAccessToken(), isJwtTokenValid));
 	}
 }

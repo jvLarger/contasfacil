@@ -11,16 +11,18 @@ public class ContaBancariaDTO {
 	private String nmNumeroConta;
 	private String nmApelidoConta;
 	private String txtDetalhes;
+	private Double vlrSaldoAtual;
 	private BancoDTO banco;
 
 	public ContaBancariaDTO() {
 	}
 
-	public ContaBancariaDTO(Long id, String nmNumeroConta, String nmApelidoConta, String txtDetalhes, Banco banco) {
+	public ContaBancariaDTO(Long id, String nmNumeroConta, String nmApelidoConta, String txtDetalhes, Banco banco, Double vlrSaldoAtual) {
 		this.id = id;
 		this.nmNumeroConta = nmNumeroConta;
 		this.nmApelidoConta = nmApelidoConta;
 		this.txtDetalhes = txtDetalhes;
+		this.vlrSaldoAtual = vlrSaldoAtual;
 		this.banco = new BancoDTO(banco);
 	}
 
@@ -29,6 +31,7 @@ public class ContaBancariaDTO {
 		this.nmNumeroConta = contaBancaria.getNmNumeroConta();
 		this.nmApelidoConta = contaBancaria.getNmApelidoConta();
 		this.txtDetalhes = contaBancaria.getTxtDetalhes();
+		this.vlrSaldoAtual = contaBancaria.getVlrSaldoAtual();
 		this.banco = new BancoDTO(contaBancaria.getBanco());
 	}
 
@@ -66,6 +69,14 @@ public class ContaBancariaDTO {
 
 	public BancoDTO getBanco() {
 		return banco;
+	}
+
+	public Double getVlrSaldoAtual() {
+		return vlrSaldoAtual;
+	}
+
+	public void setVlrSaldoAtual(Double vlrSaldoAtual) {
+		this.vlrSaldoAtual = vlrSaldoAtual;
 	}
 
 	public void setBanco(BancoDTO banco) {

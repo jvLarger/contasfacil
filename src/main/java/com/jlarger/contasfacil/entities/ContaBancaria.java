@@ -30,6 +30,9 @@ public class ContaBancaria {
 	@Column(nullable=false, length = 40)
 	private String nmNumeroConta;
 	
+	@Column(nullable=false, columnDefinition = "float8 DEFAULT 0.0")
+	private Double vlrSaldoAtual;
+	
 	@Column(length = 40)
 	private String txtDetalhes;
 	
@@ -44,16 +47,20 @@ public class ContaBancaria {
 	@OneToMany(mappedBy = "contaBancaria", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Lancamento> lancamentos = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "contaBancaria", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Cartao> cartoes = new ArrayList<>();
+	
 	public ContaBancaria() {
 	}
 
-	public ContaBancaria(Long id, String nmNumeroConta, Double vlrLimiteConta, String txtDetalhes, Banco banco, String nmApelidoConta, Usuario usuario) {
+	public ContaBancaria(Long id, String nmNumeroConta, Double vlrLimiteConta, String txtDetalhes, Banco banco, String nmApelidoConta, Usuario usuario, Double vlrSaldoAtual) {
 		super();
 		this.id = id;
 		this.nmNumeroConta = nmNumeroConta;
 		this.txtDetalhes = txtDetalhes;
 		this.banco = banco;
 		this.nmApelidoConta = nmApelidoConta;
+		this.vlrSaldoAtual = vlrSaldoAtual;
 		this.usuario = usuario;
 	}
 
@@ -79,6 +86,22 @@ public class ContaBancaria {
 
 	public void setNmNumeroConta(String nmNumeroConta) {
 		this.nmNumeroConta = nmNumeroConta;
+	}
+	
+	public Double getVlrSaldoAtual() {
+		return vlrSaldoAtual;
+	}
+
+	public void setVlrSaldoAtual(Double vlrSaldoAtual) {
+		this.vlrSaldoAtual = vlrSaldoAtual;
+	}
+
+	public List<Lancamento> getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(List<Lancamento> lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 
 	public String getTxtDetalhes() {
@@ -121,7 +144,7 @@ public class ContaBancaria {
 		ContaBancaria other = (ContaBancaria) obj;
 		return Objects.equals(banco, other.banco) && Objects.equals(id, other.id)
 				&& Objects.equals(nmNumeroConta, other.nmNumeroConta) && Objects.equals(txtDetalhes, other.txtDetalhes)
-				&& Objects.equals(usuario, other.usuario);
+				&& Objects.equals(usuario, other.usuario) && Objects.equals(vlrSaldoAtual, other.vlrSaldoAtual);
 	}
 	
 }

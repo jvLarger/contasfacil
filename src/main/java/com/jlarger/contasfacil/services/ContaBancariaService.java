@@ -64,6 +64,7 @@ public class ContaBancariaService {
 		entity.setTxtDetalhes(dto.getTxtDetalhes());
 		entity.setNmApelidoConta(dto.getNmApelidoConta());
 		entity.setBanco(banco);
+		entity.setVlrSaldoAtual(dto.getVlrSaldoAtual());
 		entity.setUsuario(ServiceLocator.getUsuarioLogado());
 
 		entity = repository.save(entity);
